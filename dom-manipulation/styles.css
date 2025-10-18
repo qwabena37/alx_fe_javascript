@@ -1,0 +1,31 @@
+/* Basic styling to make UI pleasant */
+    :root{
+      --bg:#f7f9fc; --card:#ffffff; --accent:#2b7cff; --muted:#666;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    
+body{margin:20px;
+    background:var(--bg);
+    color:#222}
+header{margin-bottom:16px}
+    h1{margin:0 0 8px}
+    .container{max-width:900px;
+        margin:0 auto;
+        background:var(--card);
+        padding:20px;border-radius:10px;
+        box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+    select,input,textarea,button{font:inherit;padding:8px;border-radius:6px;border:1px solid #ddd}
+    button{background:var(--accent);color:#fff;border:0;cursor:pointer}
+    button:disabled{opacity:0.6;cursor:default}
+    #quoteDisplay{min-height:110px;padding:18px;border-radius:8px;background:linear-gradient(180deg,#fff,#fbfdff);box-shadow:inset 0 1px 0 rgba(0,0,0,0.02)}
+    blockquote{margin:0 0 8px;font-size:1.15rem;font-style:italic}
+    .meta{color:var(--muted);font-size:.9rem}
+    form{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    form > *{flex:1 1 200px}
+    .small{font-size:.85rem;color:var(--muted)}
+    .forms{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    .message{margin-top:10px;color:green}
+    .feedback{color:#b40000}
+    .controls label{display:inline-block}
+    .controls .spacer{flex:1}
