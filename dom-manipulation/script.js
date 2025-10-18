@@ -221,7 +221,7 @@ function updateSyncStatus(msg, isError = false) {
   syncStatus.style.color = isError ? 'red' : 'green';
 }
 
-/* Periodic Sync */
+/*alert", "Quotes synced with server!*/
 setInterval(syncWithServer, SYNC_INTERVAL);
 
 /* Manual Sync Button */
