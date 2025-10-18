@@ -125,3 +125,105 @@ addQuoteBtn.addEventListener('click', addQuote);
 
 /* Initialize the app */
 loadData();
+
+/* ============================
+   STEP 2: SERVER SYNCING LOGIC
+============================ */
+
+const SERVER_URL = "https://jsonplaceholder.typicode.com/posts"; // mock API
+const SYNC_INTERVAL = 60000; // 1 minute
+
+const syncNowBtn = document.getElementById('syncNowBtn');
+const syncStatus = document.getElementById('syncStatus');
+
+/* Simulate converting quote object to "server format" */
+function quoteToServerFormat(quote, id = null) {
+  return {
+    id: id || Math.floor(Math.random() * 10000),
+    title: quote.text,
+    body: quote.category,
+    userId: 1
+  };
+}
+
+/* Convert server data back to local quote object */
+function serverToLocalFormat(item) {
+  return { text: item.title, category: item.body };
+}
+
+/* Fetch latest data from server */
+async function fetchServerQuotes() {
+  try {
+    const res = await fetch(SERVER_URL + '?_limit=5'); // limit for demo
+    if (!res.ok) throw new Error('Failed to fetch server data');
+    const data = await res.json();
+    const serverQuotes = data.map(serverToLocalFormat);
+    return serverQuotes;
+  } catch (err) {
+    console.error('Fetch error:', err);
+    updateSyncStatus('Error fetching server data.', true);
+    return [];
+  }
+}
+
+/* Push local quotes to server */
+async function pushLocalQuotes() {
+  try {
+    const promises = quotes.map(q =>
+      fetch(SERVER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(quoteToServerFormat(q))
+      })
+    );
+    await Promise.all(promises);
+    updateSyncStatus('Local quotes synced to server.');
+  } catch (err) {
+    console.error('Push error:', err);
+    updateSyncStatus('Error pushing local quotes.', true);
+  }
+}
+
+/* Simple conflict resolution: server wins */
+function resolveConflicts(serverQuotes) {
+  const merged = [...serverQuotes];
+  const existingKeys = new Set(serverQuotes.map(q => q.text.toLowerCase()));
+
+  for (const local of quotes) {
+    if (!existingKeys.has(local.text.toLowerCase())) {
+      merged.push(local);
+    }
+  }
+
+  return merged;
+}
+
+/* Perform full sync */
+async function syncWithServer() {
+  updateSyncStatus('Syncing...');
+  const serverQuotes = await fetchServerQuotes();
+  if (serverQuotes.length === 0) {
+    updateSyncStatus('No server data found.');
+    return;
+  }
+
+  const merged = resolveConflicts(serverQuotes);
+  quotes = merged;
+  saveQuotes();
+  populateCategories();
+  filterQuotes();
+  updateSyncStatus('Sync completed. Data updated from server.');
+}
+
+/* Update UI message for sync status */
+function updateSyncStatus(msg, isError = false) {
+  syncStatus.textContent = msg;
+  syncStatus.style.color = isError ? 'red' : 'green';
+}
+
+/* Periodic Sync */
+setInterval(syncWithServer, SYNC_INTERVAL);
+
+/* Manual Sync Button */
+syncNowBtn.addEventListener('click', syncWithServer);
+
