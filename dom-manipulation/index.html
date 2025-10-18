@@ -1,70 +1,57 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dynamic Quote Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f7f9fc;
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+    }
+    #quoteDisplay {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      min-height: 80px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .quote-text {
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+    .category {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    button {
+      margin: 10px;
+      padding: 8px 16px;
+      border: none;
+      background-color: #2b7cff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #195bd8;
+    }
+  </style>
 </head>
 <body>
-  <div class="container" id="app">
-    <header>
-      <h1>Dynamic Quote Generator</h1>
-      <p class="small">Pick a category and click <strong>Show New Quote</strong>, or add categories and quotes below.</p>
-    </header>
+  <h1>Dynamic Quote Generator</h1>
 
-    <div class="controls" aria-label="Quote controls">
-      <label for="categorySelect">Category</label>
-      <select id="categorySelect" aria-label="Quote category"></select>
-
-      <button id="newQuote" type="button" aria-label="Show new quote">Show New Quote</button>
-
-      <div class="spacer"></div>
-
-      <button id="copyQuote" type="button" aria-label="Copy current quote">Copy</button>
-      <button id="randomAll" type="button" aria-label="Show random from all">Random All</button>
-    </div>
-
-    <div id="quoteDisplay" role="region" aria-live="polite" aria-atomic="true">
-      <!-- Quote will be injected here -->
-    </div>
-
-    <div class="message" id="message" aria-live="polite"></div>
-
-    <section class="forms" aria-label="Forms">
-      <div>
-        <h2 style="margin-top:12px">Add Category</h2>
-        <form id="addCategoryForm" aria-label="Add category form">
-          <input id="newCategoryName" placeholder="Category name" required />
-          <button type="submit">Add Category</button>
-        </form>
-        <p class="small">Categories are case-insensitive and must be unique.</p>
-      </div>
-
-      <div>
-        <h2 style="margin-top:12px">Add Quote</h2>
-        <form id="addQuoteForm" aria-label="Add quote form">
-          <textarea id="quoteText" placeholder="Quote text" rows="3" required></textarea>
-          <input id="quoteAuthor" placeholder="Author (optional)" />
-          <select id="quoteCategorySelect" required></select>
-          <button type="submit">Add Quote</button>
-        </form>
-        <p class="small">Choose which category this quote belongs to.</p>
-      </div>
-    </section>
-
-    <!-- Template for rendering a quote (keeps DOM creation consistent) -->
-    <template id="quote-template">
-      <article>
-        <blockquote class="quote-text"></blockquote>
-        <div class="meta">
-          <span class="author"></span>
-          <span class="sep"> — </span>
-          <span class="category"></span>
-        </div>
-      </article>
-    </template>
-  </div>
+  <div id="controls"></div>
+  <div id="quoteDisplay"></div>
+  <div id="formContainer"></div>
 
   <script src="script.js"></script>
 </body>
