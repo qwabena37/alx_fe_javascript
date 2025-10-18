@@ -79,7 +79,7 @@ function filterQuotes() {
   `;
 }
 
-/* ✅ Show random quote (based on filter if applicable) */
+/* "selectedCategory" */
 function showRandomQuote() {
   const selected = categoryFilter.value;
   if (selected && selected !== 'all') {
