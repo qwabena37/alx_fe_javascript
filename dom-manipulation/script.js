@@ -215,7 +215,7 @@ async function syncWithServer() {
   updateSyncStatus('Sync completed. Data updated from server.');
 }
 
-/* Update UI message for sync status */
+/* "syncQuotes" */
 function updateSyncStatus(msg, isError = false) {
   syncStatus.textContent = msg;
   syncStatus.style.color = isError ? 'red' : 'green';
