@@ -1,79 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Quote Generator</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dynamic Quote Generator — Storage & JSON</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f7f9fc;
-      color: #222;
-      padding: 40px;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    #quoteDisplay {
-      margin: 20px auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 600px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      font-size: 1.2rem;
-    }
-
-    #addQuoteSection {
-      margin-top: 30px;
-      text-align: center;
-    }
-
-    input {
-      margin: 5px;
-      padding: 8px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      width: 250px;
-    }
-
-    button {
-      padding: 8px 14px;
-      border: none;
-      border-radius: 5px;
-      background-color: #2b7cff;
-      color: white;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #195bd8;
-    }
+    body { font-family: Arial, Helvetica, sans-serif; margin:32px; background:#f4f7fb; color:#222; }
+    .container{ max-width:900px; margin:0 auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.06);}
+    h1{margin:0 0 8px}
+    #quoteDisplay{min-height:110px;padding:18px;border-radius:8px;background:linear-gradient(180deg,#fff,#fbfdff);margin-bottom:12px}
+    .quote-text{font-size:1.15rem;font-style:italic;margin:0 0 6px}
+    .meta{color:#666;font-size:.95rem}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+    input[type="text"], select, textarea { padding:8px;border-radius:6px;border:1px solid #ddd;font:inherit }
+    button{ padding:8px 12px;border-radius:6px;border:0;background:#2b7cff;color:#fff;cursor:pointer }
+    button.secondary{background:#6c757d}
+    .small{font-size:.85rem;color:#666}
+    .flex{display:flex;gap:8px;align-items:center}
+    .message{margin-top:8px;color:green}
+    .error{color:#b40000}
+    .spacer{flex:1}
+    label{font-size:.9rem}
   </style>
 </head>
 <body>
-  <h1>Dynamic Quote Generator</h1>
+  <div class="container" id="app">
+    <header>
+      <h1>Dynamic Quote Generator</h1>
+      <p class="small">Add, persist, import and export quotes using localStorage / sessionStorage and JSON.</p>
+    </header>
 
-  <div id="quoteDisplay"></div>
-  <!-- Step 3: Dynamic Quote Addition -->
-<div>
-  <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-  <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-  <button onclick="addQuote()">Add Quote</button>
-</div>
+    <div id="quoteDisplay" role="region" aria-live="polite" aria-atomic="true">
+      <!-- Quote will be injected here -->
+    </div>
 
+    <div class="controls">
+      <button id="newQuoteBtn">Show Random Quote</button>
+      <button id="randomAllBtn">Random (All)</button>
+      <div class="spacer"></div>
+      <button id="exportBtn">Export JSON</button>
+      <input type="file" id="importFile" accept=".json,application/json" />
+      <button id="clearStorageBtn" class="secondary">Clear Stored Quotes</button>
+    </div>
 
-  <button id="newQuoteBtn">Show New Quote</button>
+    <!-- Add Quote Form (Step 3) -->
+    <section aria-label="Add quote">
+      <h2 style="margin-top:12px">Add a New Quote</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input id="newQuoteText" type="text" placeholder="Enter a new quote" style="flex:2 1 320px" />
+        <input id="newQuoteCategory" type="text" placeholder="Enter quote category" style="flex:1 1 160px" />
+        <button id="addQuoteBtn">Add Quote</button>
+      </div>
+      <p class="small">Quotes are saved to localStorage and will persist across sessions.</p>
+    </section>
 
-  <!-- Step 3: Dynamic Quote Addition -->
-  <div id="addQuoteSection">
-    <h3>Add a New Quote</h3>
-    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button onclick="addQuote()">Add Quote</button>
+    <div id="message" class="message" aria-live="polite"></div>
   </div>
 
   <script src="script.js"></script>
