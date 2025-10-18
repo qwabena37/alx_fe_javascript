@@ -31,6 +31,7 @@ function showRandomQuote() {
 
   display.appendChild(quoteEl);
   display.appendChild(categoryEl);
+
 }
 
 // Function: Add a new quote dynamically
@@ -65,3 +66,33 @@ document.getElementById("newQuoteBtn").addEventListener("click", showRandomQuote
 
 // Show a random quote when page loads
 window.addEventListener("DOMContentLoaded", showRandomQuote);
+
+
+// Step 3: Function to Add a New Quote Dynamically
+function addQuote() {
+  const textInput = document.getElementById("newQuoteText");
+  const categoryInput = document.getElementById("newQuoteCategory");
+
+  const quoteText = textInput.value.trim();
+  const quoteCategory = categoryInput.value.trim();
+
+  if (!quoteText || !quoteCategory) {
+    alert("Please enter both a quote and a category!");
+    return;
+  }
+
+  // Create new quote object
+  const newQuote = { text: quoteText, category: quoteCategory };
+
+  // Add the new quote to the array
+  quotes.push(newQuote);
+
+  // Update the display area instantly
+  showRandomQuote();
+
+  // Clear inputs
+  textInput.value = "";
+  categoryInput.value = "";
+
+  alert("New quote added successfully!");
+}
