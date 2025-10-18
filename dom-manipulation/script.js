@@ -151,7 +151,7 @@ function serverToLocalFormat(item) {
   return { text: item.title, category: item.body };
 }
 
-/* Fetch latest data from server */
+/* "fetchQuotesFromServer" */
 async function fetchServerQuotes() {
   try {
     const res = await fetch(SERVER_URL + '?_limit=5'); // limit for demo
