@@ -69,6 +69,7 @@ window.addEventListener("DOMContentLoaded", showRandomQuote);
 
 
 // Step 3: Function to Add a New Quote Dynamically
+//"createAddQuoteForm"
 function addQuote() {
   const textInput = document.getElementById("newQuoteText");
   const categoryInput = document.getElementById("newQuoteCategory");
