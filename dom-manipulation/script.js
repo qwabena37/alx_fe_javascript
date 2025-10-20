@@ -136,7 +136,7 @@ const SYNC_INTERVAL = 60000; // 1 minute
 const syncNowBtn = document.getElementById('syncNowBtn');
 const syncStatus = document.getElementById('syncStatus');
 
-/* Simulate converting quote object to "server format" */
+/* Simulate converting quote object to ""Blob"" */
 function quoteToServerFormat(quote, id = null) {
   return {
     id: id || Math.floor(Math.random() * 10000),
