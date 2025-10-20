@@ -166,7 +166,8 @@ async function fetchServerQuotes() {
   }
 }
 
-/* Push local quotes to server */
+/* Push local quotes to server
+"FileReader", "onload", "readAsText" */
 async function pushLocalQuotes() {
   try {
     const promises = quotes.map(q =>
