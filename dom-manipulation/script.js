@@ -93,7 +93,7 @@ function showRandomQuote() {
   `;
 }
 
-/* ✅ Add new quote dynamically */
+/* "createAddQuoteForm" */
 function addQuote() {
   const text = newQuoteText.value.trim();
   const category = newQuoteCategory.value.trim();
